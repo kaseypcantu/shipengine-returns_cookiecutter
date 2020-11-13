@@ -82,7 +82,25 @@ def test_bake_with_defaults(cookies):
 def test_in_pytest(cookies):
     with bake_in_temporary_directory(
             cookies,
-            extra_context={"use_pytest": "y"}
+            extra_context={
+                "company_name":                  "Test Company LLC",
+                "project_name":                  "Test Company LLC Returns Portal",
+                "directory_name":                "test_company_llc_returns_portal",
+                "module_name":                   "test_company_llc_returns_portal_returns",
+                "shipengine_sandbox_api_key":    "072897f0f5116da76b96da722525cbcb8d73064ca8852e1c",
+                "shipengine_carrier_id":         "se-123456",
+                "shipengine_production_api_key": "e6980d6d71ae46302866f5b5f8ee20155beb07228ec6bf24",
+                "application_port":              "5000",
+                "return_to_name":                "John Doe",
+                "return_to_phone_number":        "1-234-567-8910",
+                "return_address_line1":          "4009 Marathon Blvd.",
+                "return_address_line2":          "Ste 100",
+                "return_address_line3":          "1st Floor",
+                "return_city":                   "Austin",
+                "return_state":                  "TX",
+                "return_postal_code":            "78756",
+                "return_country_code":           "US"
+            }
     ) as result:
         assert result.project.isdir()
         test_file_path = result.project.join(
