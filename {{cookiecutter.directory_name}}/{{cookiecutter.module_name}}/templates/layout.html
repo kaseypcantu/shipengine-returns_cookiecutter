@@ -1,0 +1,30 @@
+{% raw %}<!DOCTYPE html>
+<html lang="en">
+
+{% include "html_head.html" %}
+
+<body>
+
+{% include "navbar.html" %}
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flashMsg notification is-{{ category }} has-text-black msg-fmt">
+                <button class="delete"></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% block content %}
+{% endblock content %}
+
+{% include "client_scripts.html" %}
+{% block scripts %}
+{% endblock scripts %}
+
+</body>
+
+</html>{% endraw %}

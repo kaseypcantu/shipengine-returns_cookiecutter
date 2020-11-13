@@ -1,0 +1,24 @@
+{
+    "company_name": "My Company",
+    "project_name": "{{ cookiecutter.company_name }} Returns Portal",
+    "directory_name": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "module_name": "{{ cookiecutter.company_name.lower().replace(' ', '_').replace('-', '_') }}_returns",
+    "shipengine_sandbox_api_key": "Sandbox ShipEngine Key (server uses this by default)",
+    "shipengine_carrier_id": "ShipEngine carrier_id (start with sandbox carrier_id) - e.g. se-123456",
+    "shipengine_production_api_key": "Production ShipEngine API Key (for use in prod)",
+    "application_port": "5000",
+    "return_to_name": "John Doe",
+    "return_to_phone_number": "1-234-567-8910",
+    "return_address_line1": "4009 Marathon Blvd.",
+    "return_address_line2": "Ste 100",
+    "return_address_line3": "1st Floor",
+    "return_city": "Austin",
+    "return_state": "TX",
+    "return_postal_code": "78756",
+    "return_country_code": "US",
+    "return_residential_indicator": [
+        "no",
+        "yes",
+        "unknown"
+    ]
+}

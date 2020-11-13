@@ -1,0 +1,17 @@
+{% raw %}{% extends "layout.html" %}
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <h1 class="title is-2 has-text-danger">
+                <strong>ShipEngine Response Code: </strong>{{ error_data.status_code }}
+                <br>
+                <br>
+                <strong>ShipEngine Request-Id: </strong>{{ error_data.shipengine_response.request_id }}
+            </h1>
+
+            <h1 class="title is-3">
+                {{ error_data.shipengine_response | e }}
+            </h1>
+        </div>
+    </div>
+{% endblock %}{% endraw %}
