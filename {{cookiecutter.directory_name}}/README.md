@@ -21,6 +21,16 @@ python run.py
 ```
 - You can now visit the `frontend` at http://localhost:5000/
 
+## Local Development
+- There is a ready made [docker-compose.yml](./docker-compose.yml "Docker Compose File") (PostgreSQL, Redis, PGAdmin, or Adminer) that you can spin up with this command:
+```bash
+docker-compose up -d
+```
+- This will start the server in daemon mode, and you can view the logs using the following:
+```bash
+docker-compose logs
+```
+
 ## Notes on usage and deployment
 - The server is configured to use the Sandbox API key by default. This means you will need to change [.env](./.env) on **line 8** variable `SHIPENGINE_CARRIER_ID` that the the [se_client.py](./{{ cookiecutter.module_name }}/se_client.py) uses on **line 47**, to the ShipEngine Production API Key. 
 - You will also need to adjust your `carrier_id` from a `sandbox carrier_id` to one of `your connected carrier accounts` carrier_ids for use in `production`.
