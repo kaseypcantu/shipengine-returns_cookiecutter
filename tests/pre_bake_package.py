@@ -111,5 +111,5 @@ def test_in_pytest(cookies):
         # Test the new pytest target
         run_inside_directory('python setup.py pytest', str(result.project)) == 0
         # Test the test alias (which invokes pytest)
-        run_inside_directory('python setup.py test', str(result.project)) == 0\
+        run_inside_directory('python setup.py test', str(result.project)) == 0
 
