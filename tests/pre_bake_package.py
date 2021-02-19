@@ -15,8 +15,8 @@ import pytest_cookies
 def inside_directory(dirpath):
     """
     Execute code from inside the given directory.
-    
-    :param dirpath: String: Path of the directory the command is being run in. 
+
+    :param dirpath: String: Path of the directory the command is being run in.
     :return: void
     """
     previous_path = os.getcwd()
@@ -31,11 +31,11 @@ def inside_directory(dirpath):
 def bake_in_temporary_directory(cookies, *args, **kwargs):
     """
     Delete the temporary directory that is created when executing tests.
-    
+
     :param cookies: pytest_cookies.Cookies: Cookie to be baked and its temporary files to be removed.
-    :param args: 
-    :param kwargs: 
-    :return: 
+    :param args:
+    :param kwargs:
+    :return:
     """
     result = cookies.bake(*args, **kwargs)
     try:
@@ -81,35 +81,32 @@ def test_bake_with_defaults(cookies):
 
 def test_in_pytest(cookies):
     with bake_in_temporary_directory(
-            cookies,
-            extra_context={
-                "company_name":                  "Test Company LLC",
-                "project_name":                  "Test Company LLC Returns Portal",
-                "directory_name":                "test_company_llc_returns_portal",
-                "module_name":                   "test_company_llc_returns_portal_returns",
-                "shipengine_sandbox_api_key":    "072897f0f5116da76b96da722525cbcb8d73064ca8852e1c",
-                "shipengine_carrier_id":         "se-123456",
-                "shipengine_production_api_key": "e6980d6d71ae46302866f5b5f8ee20155beb07228ec6bf24",
-                "application_port":              "5000",
-                "return_to_name":                "John Doe",
-                "return_to_phone_number":        "1-234-567-8910",
-                "return_address_line1":          "4009 Marathon Blvd.",
-                "return_address_line2":          "Ste 100",
-                "return_address_line3":          "1st Floor",
-                "return_city":                   "Austin",
-                "return_state":                  "TX",
-                "return_postal_code":            "78756",
-                "return_country_code":           "US"
-            }
+        cookies,
+        extra_context={
+            "company_name": "Test Company LLC",
+            "project_name": "Test Company LLC Returns Portal",
+            "directory_name": "test_company_llc_returns_portal",
+            "module_name": "test_company_llc_returns_portal_returns",
+            "shipengine_sandbox_api_key": "072897f0f5116da76b96da722525cbcb8d73064ca8852e1c",
+            "shipengine_carrier_id": "se-123456",
+            "shipengine_production_api_key": "e6980d6d71ae46302866f5b5f8ee20155beb07228ec6bf24",
+            "application_port": "5000",
+            "return_to_name": "John Doe",
+            "return_to_phone_number": "1-234-567-8910",
+            "return_address_line1": "4009 Marathon Blvd.",
+            "return_address_line2": "Ste 100",
+            "return_address_line3": "1st Floor",
+            "return_city": "Austin",
+            "return_state": "TX",
+            "return_postal_code": "78756",
+            "return_country_code": "US",
+        },
     ) as result:
         assert result.project.isdir()
-        test_file_path = result.project.join(
-                "tests/test_in_pytest.py"
-        )
+        test_file_path = result.project.join("tests/test_in_pytest.py")
         lines = test_file_path.readlines()
         assert "import pytest" in "".join(lines)
         # Test the new pytest target
-        run_inside_directory('python setup.py pytest', str(result.project)) == 0
+        run_inside_directory("python setup.py pytest", str(result.project)) == 0
         # Test the test alias (which invokes pytest)
-        run_inside_directory('python setup.py test', str(result.project)) == 0
-
+        run_inside_directory("python setup.py test", str(result.project)) == 0

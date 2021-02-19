@@ -21,7 +21,7 @@ class ShipFromAddress:
         valid_residential_indicators = ("yes", "no", "unknown")
         if self.address_residential_indicator not in valid_residential_indicators:
             raise ValueError(
-                    f"address_residential_indicator must be on of {valid_residential_indicators}"
+                f"address_residential_indicator must be on of {valid_residential_indicators}"
             )
 
 
@@ -43,7 +43,7 @@ class ShipToAddress:
         valid_residential_indicators = ("yes", "no", "unknown")
         if self.address_residential_indicator not in valid_residential_indicators:
             raise ValueError(
-                    f"address_residential_indicator must be on of {valid_residential_indicators}"
+                f"address_residential_indicator must be on of {valid_residential_indicators}"
             )
 
 
@@ -65,7 +65,7 @@ class ReturnAddress:
         valid_residential_indicators = ("yes", "no", "unknown")
         if self.address_residential_indicator not in valid_residential_indicators:
             raise ValueError(
-                    f"address_residential_indicator must be on of {valid_residential_indicators}"
+                f"address_residential_indicator must be on of {valid_residential_indicators}"
             )
 
 
