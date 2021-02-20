@@ -218,3 +218,5 @@ redis.conf/
 postgres_data
 
 .idea/
+
+./.DS_Store
