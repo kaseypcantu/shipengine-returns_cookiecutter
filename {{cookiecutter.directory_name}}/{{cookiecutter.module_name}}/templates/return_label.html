@@ -10,8 +10,8 @@
 
                     <div class="content">
                         <ul type="I">
-                            <li class="subtitle is-5">Shipping Label ID: <strong>{{ se_data.shipengine_response.label_id }}</strong></li>
-                            <li class="subtitle is-5">Tracking #: <strong>{{ se_data.shipengine_response.tracking_number }}</strong></li>
+                            <li class="subtitle is-5">Shipping Label ID: <strong>{{ se_data.label_id }}</strong></li>
+                            <li class="subtitle is-5">Tracking #: <strong>{{ se_data.tracking_number }}</strong></li>
                         </ul>
                     </div>
 
@@ -141,7 +141,7 @@
                         Print your return label below!
                     </h1>
 
-                    <object data="{{ se_data.shipengine_response.label_download.pdf }}"
+                    <object data="{{ se_data.label_download.pdf }}"
                             type="application/pdf"
                             width="500"
                             height="700"
@@ -161,7 +161,7 @@
         const labelIdInput = document.querySelector("#label_id");
         const fullNameInput = document.querySelector("#contact_name");
 
-        labelIdInput.value = "{{ se_data.shipengine_response.label_id }}";
+        labelIdInput.value = "{{ se_data.label_id }}";
 
         const fullName = localStorage.getItem("fullName");
         fullNameInput.value = fullName;

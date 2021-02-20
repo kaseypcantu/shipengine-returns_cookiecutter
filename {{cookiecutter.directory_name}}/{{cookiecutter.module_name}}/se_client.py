@@ -11,7 +11,7 @@ from flask import jsonify, flash
 from requests import HTTPError
 from requests.auth import AuthBase
 
-from {{cookiecutter.module_name}}.models import (
+from {{ cookiecutter.module_name }}.models import (
     ShipFromAddress,
     ShipToAddress,
     Package,
@@ -39,15 +39,17 @@ class ShipEngineAuth(AuthBase):
 
 class ShipEngine:
     _BASE_URL = "https://api.shipengine.com/v1/"
-    _CURRENT_DATE = dt.strftime("%m/%d/%Y").encode("utf-8").strip()
+    _CURRENT_DATE = dt.strftime("%m/%d/%Y")
 
     def __init__(
             self,
             api_key: str = os.getenv("SHIPENGINE_SANDBOX_API_KEY"),
             carrier_id: str = os.getenv("SHIPENGINE_CARRIER-ID"),
+            carrier_service_code: str = os.getenv("SHIPENGINE_CARRIER_SERVICE_CODE")
     ):
         self.api_key = api_key
         self.carrier_id = carrier_id
+        self.carrier_service_code = carrier_service_code
         self.session = requests.Session()
 
     def request(self, method: str, endpoint: str, *args, **kwargs):
@@ -60,12 +62,14 @@ class ShipEngine:
             # resp.raise_for_status()
             logging.debug(
                 "SHIPENGINE_RESPONSE:\n" + json.dumps(resp.json(), indent=4)
-            )  # logs the response from ShipEngineAuth
-            r = {
-                "status_code": resp.status_code,
-                "shipengine_response": resp.json()
-            }
-            return r
+            )  # logging response
+
+            # Uncomment the following line for easy debug output on the response from ShipEngine API
+            # r = {
+            #     "status_code": resp.status_code,
+            #     "shipengine_response": resp.json()
+            # }
+            return resp.json(), str(resp.status_code)
         except HTTPError as e:
             error_obj = [err["message"] for err in e.response.json()["error_routes"]]
             json_error_obj = jsonify(error_obj)
@@ -74,12 +78,6 @@ class ShipEngine:
                     f"Request Failed: {resp.status_code} | e: {e}\n\n ERROR: {json.dumps(error_obj, indent=4)}\n"
             )
             return e, json_error_obj
-        # The below will run after testing the above
-        # resp = self.session.request(
-        #     method, self._BASE_URL + endpoint.strip("/"), *args, **kwargs
-        # )
-        # resp.raise_for_status()
-        # return resp.json()
 
     def get(self, endpoint, *args, **kwargs):
         return self.request("GET", endpoint, *args, **kwargs)
@@ -104,7 +102,7 @@ class ShipEngine:
     ):
         shipment = Shipment(
                 carrier_id=self.carrier_id,
-                service_code="usps_first_class_mail",
+                service_code=self.carrier_service_code,
                 validate_address="validate_and_clean",
                 external_shipment_id=None,
                 external_order_id=None,
@@ -152,7 +150,7 @@ class ShipEngine:
 
         shipment = Shipment(
                 carrier_id=self.carrier_id,
-                service_code="ups_ground",
+                service_code=self.carrier_service_code,
                 validate_address="validate_and_clean",
                 external_shipment_id=None,
                 external_order_id=None,
@@ -224,13 +222,14 @@ class ShipEngine:
 #         package_code="package"
 # )
 #
-# #
+#
 # se = ShipEngine()
-# #
+#
 # r = se.create_label(ship_to_address=curative_ship_to,
 #                     ship_from_address=user_ship_from,
 #                     packages=[package_1])
 #
-# # print(r["label_id"])
-# # p.pprint(r["shipments"][0]["shipment_id"])
+# print(r[0]["label_id"])
+# print(r[1])
+# p.pprint(r["shipments"][0]["shipment_id"])
 # p.pprint(r)

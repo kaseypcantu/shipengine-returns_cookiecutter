@@ -1,6 +1,7 @@
+import json
 import dataclasses
 
-from flask import render_template, Blueprint, request, flash, jsonify
+from flask import render_template, Blueprint, request, flash
 
 from {{cookiecutter.module_name}} import ShipEngine
 from {{cookiecutter.module_name}}.main_routes.forms import ShippingAddressForm, SchedulePickupForm
@@ -67,19 +68,19 @@ def home():
         )
     ]
 
-    se_data = se.create_label(ship_to_address=shipToAddress, ship_from_address=shipFromAddress, packages=packages)
-    status_code = se_data["status_code"]
+    se_response = se.create_label(ship_to_address=shipToAddress, ship_from_address=shipFromAddress, packages=packages)
+    se_data, status_code = se_response
     # label_pdf = se_data["shipengine_response"]["label_download"]["pdf"]
 
     # Uncomment line 75 if you have added SMTP credentials to the .env file so you can email the user their return shipping label
     # send_shipping_label_email(email_addr=form.contact_email.data, label_pdf=label_pdf)
 
-    if int(str(status_code)[0]) == 5:
+    if status_code[0] == "5":
         print(se_data)
-        return render_template("errors/se-5XX.html", title="{{cookiecutter.project_name}} - SE Error", error_data=se_data)
-    elif int(str(status_code)[0]) == 4:
+        return render_template("errors/se-5XX.html", title="{{cookiecutter.project_name}} - SE Error", error_data=json.dumps(se_data, indent=2, separators=(",", ": ")), error_status=status_code)
+    elif status_code[0] == "4":
         print(se_data)
-        return render_template("errors/se-4XX.html", title="{{cookiecutter.project_name}} - SE Error", error_data=se_data)
+        return render_template("errors/se-4XX.html", title="{{cookiecutter.project_name}} - SE Error", error_data=json.dumps(se_data, indent=2, separators=(",", ": ")), error_status=status_code)
 
     flash('Label Generated!', "success")
     pickup_form = SchedulePickupForm()

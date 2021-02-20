@@ -5,6 +5,7 @@
     "module_name": "{{ cookiecutter.company_name.lower().replace(' ', '_').replace('-', '_') }}_returns",
     "shipengine_sandbox_api_key": "Sandbox ShipEngine Key (server uses this by default)",
     "shipengine_carrier_id": "ShipEngine carrier_id (start with sandbox carrier_id) - e.g. se-123456",
+    "shipengine_carrier_service_code": "ShipEngine carrier service code - e.g. ups_ground",
     "shipengine_production_api_key": "Production ShipEngine API Key (for use in prod)",
     "application_port": "5000",
     "return_to_name": "John Doe",
