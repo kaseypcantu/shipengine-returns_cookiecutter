@@ -1,0 +1,175 @@
+{% extends "layout.html" %}
+{% block content %}
+    <section class="section">
+        <div class="container">
+
+            <div class="columns is-mobile">
+
+                <div class="column is-half" style="margin-top: 50px;">
+                    <h1 class="title has-text-success">Shipping Details</h1>
+
+                    <div class="content">
+                        <ul type="I">
+                            <li class="subtitle is-5">Shipping Label ID: <strong>{{ se_data.label_id }}</strong></li>
+                            <li class="subtitle is-5">Tracking #: <strong>{{ se_data.tracking_number }}</strong></li>
+                        </ul>
+                    </div>
+
+
+                    <h1 class="title has-text-success is-italic">Need to schedule a pick
+                        up?<span><strong>(Optional)</strong></span></h1>
+                    <h2 class="subtitle"><strong class="has-text-info">Notice:</strong> Once submitted, this pickup
+                        request cannot be cancelled.</h2>
+
+
+                    <fieldset>
+                        <form action="/schedule-pickup" method="POST">
+                            <div class="field-body">
+                                <div class="field">
+                                    {{ form.label_id.label(class="label is-small") }}
+
+                                    {% if form.label_id.errors %}
+                                        {{ form.label_id(class="input control is-danger is-small") }}
+                                        {% for error in form.label_id.errors %}
+                                            <p class="help is-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ form.label_id(class="input control is-info is-small") }}
+                                    {% endif %}
+                                </div>
+
+                                <div class="field">
+                                    {{ form.contact_name.label(class="label is-small") }}
+
+                                    {% if form.contact_name.errors %}
+                                        {{ form.contact_name(class="input control is-danger is-small", placeholder="e.g. Ship Engine") }}
+                                        {% for error in form.contact_name.errors %}
+                                            <p class="help is-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ form.contact_name(class="input control is-info is-small", placeholder="e.g. Ship Engine") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="field-body mt-5">
+                                <div class="field">
+                                    {{ form.contact_email.label(class="label is-small") }}
+
+                                    {% if form.contact_email.errors %}
+                                        {{ form.contact_email(class="input control is-danger is-small",
+                                            placeholder="e.g. user@example.com") }}
+                                        {% for error in form.contact_email.errors %}
+                                            <p class="help is-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ form.contact_email(class="input control is-info is-small",
+                                            placeholder="e.g. user@example.com") }}
+                                    {% endif %}
+                                </div>
+
+                                <div class="field">
+                                    {{ form.contact_phone.label(class="label is-small") }}
+
+                                    {% if form.contact_phone.errors %}
+                                        {{ form.contact_phone(class="input control is-danger is-small",
+                                            placeholder="e.g. 1-234-567-8912") }}
+                                        {% for error in form.contact_phone.errors %}
+                                            <p class="help is-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ form.contact_phone(class="input control is-info is-small",
+                                            placeholder="e.g. 1-234-567-8912") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="field-body mt-5">
+                                <div class="field">
+                                    {{ form.pickup_window_start_at.label(class="label is-small") }}
+
+                                    {% if form.pickup_window_start_at.errors %}
+                                        {{ form.pickup_window_start_at(class="input control is-danger is-small",
+                                            placeholder="e.g. 12/25/2020, 10:00 AM") }}
+                                        {% for error in form.pickup_window_start_at.errors %}
+                                            <p class="help is-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ form.pickup_window_start_at(class="input control is-info is-small",
+                                            placeholder="e.g. 12/25/2020, 10:00 AM") }}
+                                    {% endif %}
+                                </div>
+
+                                <div class="field">
+                                    {{ form.pickup_window_end_at.label(class="label is-small") }}
+
+                                    {% if form.pickup_window_end_at.errors %}
+                                        {{ form.pickup_window_end_at(class="input control is-danger is-small",
+                                            placeholder="e.g.") }}
+                                        {% for error in form.pickup_window_end_at.errors %}
+                                            <p class="help is-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ form.pickup_window_end_at(class="input control is-info is-small",
+                                            placeholder="e.g.") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="field mt-5">
+                                <div class="control">
+                                    {{ form.pickup_notes.label(class="label is-small") }}
+
+                                    {{ form.pickup_notes(class="textarea is-info",
+                                        placeholder="e.g. Please knock, doorbell is broken. Gate code #1234.") }}
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.schedule_pickup(class="button is-warning is-medium") }}
+                                </div>
+                            </div>
+                        </form>
+                    </fieldset>
+
+                </div>
+
+                <div class="column is-half">
+                    <h1 class="title has-text-success has-text-centered is-2"
+                        style="margin-bottom: 15px; margin-top: 25px;">
+                        Print your return label below!
+                    </h1>
+
+                    <object data="{{ se_data.label_download.pdf }}"
+                            type="application/pdf"
+                            width="500"
+                            height="700"
+                            style="margin-left: 80px;">
+                    </object>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        document.getElementById("pickup_notes").focus();
+
+        const labelIdInput = document.querySelector("#label_id");
+        const fullNameInput = document.querySelector("#contact_name");
+
+        labelIdInput.value = "{{ se_data.label_id }}";
+
+        const fullName = localStorage.getItem("fullName");
+        fullNameInput.value = fullName;
+
+        const contactEmail = localStorage.getItem("contactEmail");
+        document.querySelector("#contact_email").value = contactEmail;
+
+        const contactPhone = localStorage.getItem("contactPhone")
+        document.getElementById("contact_phone").value = contactPhone;
+    </script>
+{% endblock scripts %}

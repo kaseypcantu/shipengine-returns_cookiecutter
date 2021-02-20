@@ -1,0 +1,197 @@
+{% extends "layout.html" %}
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1 style="margin-bottom: 15px; margin-top: 25px;"
+                class="is-size-1 has-text-center is-centered">
+                flask server funko Returns Portal
+            </h1>
+            <div class="columns is-mobile is-centered">
+                <div class="column is-three-fifths">
+                    <form id="returnForm" action="" method="POST">
+                        {{ form.hidden_tag() }}
+
+                        <h1 class="title is-3 has-text-info" style="margin-top: 70px;">
+                            <p>We will send your return label to this address.</p>
+                        </h1>
+
+                        <div class="field-body mt-5">
+                            <div class="field">
+                                {{ form.contact_email.label(class="label is-small") }}
+
+                                {% if form.contact_email.errors %}
+                                    {{ form.contact_email(class="input control is-danger is-small", placeholder="e.g. user@example.com") }}
+                                    {% for error in form.contact_email.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.contact_email(class="input control is-info is-small", placeholder="e.g. user@example.com") }}
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                        <div class="field-body">
+                            <div class="field">
+                                {{ form.name.label(class="label is-small") }}
+
+                                {% if form.name.errors %}
+                                    {{ form.name(class="input control is-danger is-small", placeholder="e.g. John Doe") }}
+                                    {% for error in form.name.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.name(class="input control is-info is-small", placeholder="e.g. John Doe") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                {{ form.phone.label(class="label is-small") }}
+
+                                {% if form.phone.errors %}
+                                    {{ form.phone(class="input control is-danger is-small", placeholder="e.g. 1-234-567-8910") }}
+                                    {% for error in form.phone.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.phone(class="input control is-info is-small", placeholder="e.g. 1-234-567-8910") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                {{ form.company_name.label(class="label is-small") }}
+
+                                {% if form.company_name.errors %}
+                                    {{ form.company_name(class="input control is-danger is-small", placeholder="e.g. My Company") }}
+                                    {% for error in form.company_name.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.company_name(class="input control is-info is-small", placeholder="e.g. My Company") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="field-body mt-5">
+
+                        </div>
+
+                        <div class="field-body mt-5">
+                            <div class="field">
+                                {{ form.address_line_1.label(class="label is-small") }}
+
+                                {% if form.address_line_1.errors %}
+                                    {{ form.address_line_1(class="input control is-danger is-small", placeholder="e.g. 1234 Main Street") }}
+                                    {% for error in form.address_line_1.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.address_line_1(class="input control is-info is-small", placeholder="e.g. 1234 Main Street") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                {{ form.address_line_2.label(class="label is-small") }}
+
+                                {% if form.address_line_2.errors %}
+                                    {{ form.address_line_2(class="input control is-danger is-small", placeholder="e.g. Suite 250") }}
+                                    {% for error in form.address_line_2.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.address_line_2(class="input control is-info is-small", placeholder="e.g. Suite 250") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                {{ form.address_line_3.label(class="label is-small") }}
+
+                                {% if form.address_line_3.errors %}
+                                    {{ form.address_line_3(class="input control is-danger is-small", placeholder="e.g. 1st Floor") }}
+                                    {% for error in form.address_line_3.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.address_line_3(class="input control is-info is-small", placeholder="e.g. 1st Floor") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+                        <div class="field-body">
+                            <div class="field">
+                                {{ form.city_locality.label(class="label is-small") }}
+
+                                {% if form.city_locality.errors %}
+                                    {{ form.city_locality(class="input control is-danger is-small", placeholder="e.g. Austin") }}
+                                    {% for error in form.city_locality.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.city_locality(class="input control is-info is-small", placeholder="e.g. Austin") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                {{ form.state_province.label(class="label is-small") }}
+
+                                {% if form.state_province.errors %}
+                                    {{ form.state_province(class="input control is-danger is-small", placeholder="e.g. TX") }}
+                                    {% for error in form.state_province.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.state_province(class="input control is-info is-small", placeholder="e.g. TX") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                {{ form.postal_code.label(class="label is-small") }}
+
+                                {% if form.postal_code.errors %}
+                                    {{ form.postal_code(class="input control is-danger is-small", placeholder="e.g. 78756") }}
+                                    {% for error in form.postal_code.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.postal_code(class="input control is-info is-small", placeholder="e.g. 78756") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="field">
+                                {{ form.country_code.label(class="label is-small") }}
+
+                                {% if form.country_code.errors %}
+                                    {{ form.country_code(class="input control is-danger is-small", placeholder="e.g. US") }}
+                                    {% for error in form.country_code.errors %}
+                                        <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.country_code(class="input control is-info is-small", placeholder="e.g. US") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="field-body">
+
+                        </div>
+
+                        <div class="field-body mt-5">
+                            <div class="field">
+                                {{ form.address_residential_indicator.label(class="label is-small") }}
+                                {{ form.address_residential_indicator(class="select is-small") }}
+                            </div>
+                        </div>
+
+
+                        <div class="field" style="margin-top: 15px;">
+                            <div class="control">
+                                {{ form.create_return_label(class="button is-success is-medium is-centered") }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
